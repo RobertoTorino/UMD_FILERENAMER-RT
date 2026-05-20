@@ -1,0 +1,28 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "msvc-qt6-release",
+      "displayName": "MSVC Qt 6 Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.10.2/msvc2022_64",
+        "Qt6_DIR": "C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-msvc-qt6-release",
+      "configurePreset": "msvc-qt6-release",
+      "configuration": "Release"
+    }
+  ]
+}

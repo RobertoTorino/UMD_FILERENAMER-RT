@@ -1,0 +1,5 @@
+C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer.dir
+C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/edit_cache.dir
+C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/rebuild_cache.dir
+C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer_autogen_timestamp_deps.dir
+C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer_autogen.dir

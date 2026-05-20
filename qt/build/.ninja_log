@@ -1,0 +1,23 @@
+# ninja log v7
+23	661	8006688100846201	UMD_FileRenamer_autogen/timestamp	ca8ddc47cbfa9d26
+23	661	8006688100846201	UMD_FileRenamer_autogen/mocs_compilation.cpp	ca8ddc47cbfa9d26
+23	661	8006688100846201	C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/timestamp	ca8ddc47cbfa9d26
+23	661	8006688100846201	C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/mocs_compilation.cpp	ca8ddc47cbfa9d26
+2840	2937	8006661309901747	UMD_FileRenamer_autogen/3YJK5W5UP7/qrc_resources.cpp	df54d0505ecd6ba7
+2840	2937	8006661309901747	C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/3YJK5W5UP7/qrc_resources.cpp	df54d0505ecd6ba7
+2979	3067	8006661310476708	CMakeFiles/UMD_FileRenamer.dir/UMD_FileRenamer_autogen/3YJK5W5UP7/qrc_resources.cpp.obj	b04f3eb80500c3dc
+2964	5295	8006661310331487	CMakeFiles/UMD_FileRenamer.dir/src/psfparser.cpp.obj	d48892f300b823cf
+2956	6656	8006661310251515	CMakeFiles/UMD_FileRenamer.dir/src/isoreader.cpp.obj	be0288a1abe7f7f3
+689	5137	8006688101841753	CMakeFiles/UMD_FileRenamer.dir/src/renamerlogic.cpp.obj	948e0c655ba1c9e1
+663	6368	8006688101581689	CMakeFiles/UMD_FileRenamer.dir/UMD_FileRenamer_autogen/mocs_compilation.cpp.obj	c47d8e70658ffbd2
+671	6340	8006688101661731	CMakeFiles/UMD_FileRenamer.dir/src/main.cpp.obj	ca7dd13cec275c42
+680	6932	8006688101751739	CMakeFiles/UMD_FileRenamer.dir/src/mainwindow.cpp.obj	cb661828ab2df5a0
+18	273	8006688217651136	UMD_FileRenamer.exe	c82dd92b8821cce1
+15	581	8006696218076783	UMD_FileRenamer_autogen/timestamp	ca8ddc47cbfa9d26
+15	581	8006696218076783	UMD_FileRenamer_autogen/mocs_compilation.cpp	ca8ddc47cbfa9d26
+15	581	8006696218076783	C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/timestamp	ca8ddc47cbfa9d26
+15	581	8006696218076783	C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/mocs_compilation.cpp	ca8ddc47cbfa9d26
+589	6461	8006696218738598	CMakeFiles/UMD_FileRenamer.dir/src/main.cpp.obj	ca7dd13cec275c42
+582	6569	8006696218674336	CMakeFiles/UMD_FileRenamer.dir/UMD_FileRenamer_autogen/mocs_compilation.cpp.obj	c47d8e70658ffbd2
+597	7376	8006696218823596	CMakeFiles/UMD_FileRenamer.dir/src/mainwindow.cpp.obj	cb661828ab2df5a0
+7376	7615	8006696286614850	UMD_FileRenamer.exe	c82dd92b8821cce1

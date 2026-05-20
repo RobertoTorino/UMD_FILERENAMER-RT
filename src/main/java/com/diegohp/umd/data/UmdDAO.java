@@ -33,7 +33,7 @@ public class UmdDAO {
                 PSF psf = new PSF();
 
                 logger.info("Reading file: " + file.getName());
-                UmdIsoReader iso = new UmdIsoReader(file.getPath());
+                try (UmdIsoReader iso = new UmdIsoReader(file.getPath())) {
 
                 UmdIsoFile paramSfo = iso.getFile("PSP_GAME/param.sfo");
                 byte[] sfo = new byte[(int) paramSfo.length()];
@@ -66,6 +66,7 @@ public class UmdDAO {
                 umd.setIcon0(icon0);
                 umd.setFile(file);
 
+                } // closes try-with-resources (iso is released here)
                 return umd;
 
             }

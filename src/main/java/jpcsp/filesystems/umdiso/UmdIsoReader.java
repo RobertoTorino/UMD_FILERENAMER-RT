@@ -36,7 +36,7 @@ import org.bolet.jgz.Inflater;
  * 
  * @author gigaherz
  */
-public class UmdIsoReader {
+public class UmdIsoReader implements java.io.Closeable {
 
 	RandomAccessFile fileReader;
 	private HashMap<String, Iso9660File> fileCache = new HashMap<String, Iso9660File>();
@@ -542,5 +542,12 @@ public class UmdIsoReader {
 		out.println(String.format("Missing    %10d (%d sectors)",
 				(numSectors * 2048) - size, numSectors - (size / 2048)));
 		out.close();
+	}
+
+	@Override
+	public void close() throws java.io.IOException {
+		if (fileReader != null) {
+			fileReader.close();
+		}
 	}
 }
