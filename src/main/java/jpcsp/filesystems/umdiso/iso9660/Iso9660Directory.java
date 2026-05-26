@@ -35,7 +35,7 @@ public class Iso9660Directory {
     public Iso9660Directory(UmdIsoReader r, int directorySector, int directorySize) throws IOException
     {
         // parse directory sector
-        UmdIsoFile dataStream = new UmdIsoFile(r, directorySector, directorySize, null, null);
+        try (UmdIsoFile dataStream = new UmdIsoFile(r, directorySector, directorySize, null, null)) {
 
         files = new ArrayList<Iso9660File>();
 
@@ -60,6 +60,7 @@ public class Iso9660Directory {
             Iso9660File file = new Iso9660File(b,b.length);
             files.add(file);
         }
+        } // end try-with-resources (dataStream auto-closed)
     }
 
     public Iso9660File getEntryByIndex(int index) throws ArrayIndexOutOfBoundsException

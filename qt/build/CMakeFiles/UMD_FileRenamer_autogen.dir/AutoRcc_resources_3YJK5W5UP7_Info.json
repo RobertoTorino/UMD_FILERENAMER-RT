@@ -7,7 +7,7 @@
 	"CROSS_CONFIG" : false,
 	"GENERATOR" : "Ninja",
 	"INCLUDE_DIR" : "C:/development/UMD_FileRenamer-RT/qt/build/UMD_FileRenamer_autogen/include",
-	"INPUTS" : [],
+	"INPUTS" : [ "C:/development/UMD_FileRenamer-RT/assets/app.ico" ],
 	"LOCK_FILE" : "C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Lock.lock",
 	"MULTI_CONFIG" : false,
 	"OPTIONS" : [ "--no-zstd", "-name", "resources" ],

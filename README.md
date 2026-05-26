@@ -11,7 +11,15 @@ Validated toolchain:
 - Qt: `C:/Qt/6.10.2/msvc2022_64`
 - Visual Studio 2022 Build Tools: `C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools`
 
-Build from PowerShell:
+Quick build from the repo root:
+
+```powershell
+.\build.ps1
+```
+
+Or double-click `build.bat` to build and open the `qt\build` folder when it succeeds.
+
+Build from PowerShell with a clean rebuild:
 
 ```powershell
 Set-Location qt

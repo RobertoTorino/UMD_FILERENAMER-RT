@@ -115,6 +115,18 @@ build CMakeFiles\UMD_FileRenamer.dir\src\renamerlogic.cpp.obj: CXX_COMPILER__UMD
   TARGET_PDB = UMD_FileRenamer.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\UMD_FileRenamer.dir
 
+build CMakeFiles\UMD_FileRenamer.dir\appicon.rc.res: RC_COMPILER__UMD_FileRenamer_unscanned_Release C$:\development\UMD_FileRenamer-RT\qt\appicon.rc || cmake_object_order_depends_target_UMD_FileRenamer
+  CONFIG = Release
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\UMD_FileRenamer.dir\appicon.rc.res.d
+  FLAGS = -DWIN32
+  INCLUDES = -I C:\development\UMD_FileRenamer-RT\qt\build\UMD_FileRenamer_autogen\include -I C:\Qt\6.10.2\msvc2022_64\include\QtCore -I C:\Qt\6.10.2\msvc2022_64\include -I C:\Qt\6.10.2\msvc2022_64\mkspecs\win32-msvc -I C:\Qt\6.10.2\msvc2022_64\include\QtGui -I C:\VulkanSDK\1.4.341.1\include -I C:\Qt\6.10.2\msvc2022_64\include\QtWidgets
+  OBJECT_DIR = CMakeFiles\UMD_FileRenamer.dir
+  OBJECT_FILE_DIR = CMakeFiles\UMD_FileRenamer.dir
+  TARGET_COMPILE_PDB = CMakeFiles\UMD_FileRenamer.dir\
+  TARGET_PDB = UMD_FileRenamer.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\UMD_FileRenamer.dir
+
 build CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp.obj: CXX_COMPILER__UMD_FileRenamer_unscanned_Release C$:\development\UMD_FileRenamer-RT\qt\build\UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp || cmake_object_order_depends_target_UMD_FileRenamer
   CONFIG = Release
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
@@ -134,7 +146,7 @@ build CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_reso
 #############################################
 # Link the executable UMD_FileRenamer.exe
 
-build UMD_FileRenamer.exe: CXX_EXECUTABLE_LINKER__UMD_FileRenamer_Release CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\mocs_compilation.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\main.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\mainwindow.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\isoreader.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\psfparser.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\renamerlogic.cpp.obj CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp.obj | C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Widgets.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Gui.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Core.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6EntryPoint.lib || UMD_FileRenamer_autogen UMD_FileRenamer_autogen_timestamp_deps
+build UMD_FileRenamer.exe: CXX_EXECUTABLE_LINKER__UMD_FileRenamer_Release CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\mocs_compilation.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\main.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\mainwindow.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\isoreader.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\psfparser.cpp.obj CMakeFiles\UMD_FileRenamer.dir\src\renamerlogic.cpp.obj CMakeFiles\UMD_FileRenamer.dir\appicon.rc.res CMakeFiles\UMD_FileRenamer.dir\UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp.obj | C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Widgets.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Gui.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6Core.lib C$:\Qt\6.10.2\msvc2022_64\lib\Qt6EntryPoint.lib || UMD_FileRenamer_autogen UMD_FileRenamer_autogen_timestamp_deps
   CONFIG = Release
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
@@ -199,7 +211,7 @@ build UMD_FileRenamer_autogen\timestamp UMD_FileRenamer_autogen\mocs_compilation
 #############################################
 # Custom command for UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp
 
-build UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp | ${cmake_ninja_workdir}UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp: CUSTOM_COMMAND C$:\development\UMD_FileRenamer-RT\qt\resources\resources.qrc CMakeFiles\UMD_FileRenamer_autogen.dir\AutoRcc_resources_3YJK5W5UP7_Info.json C$:\Qt\6.10.2\msvc2022_64\bin\rcc.exe C$:\Qt\6.10.2\msvc2022_64\bin\rcc.exe || UMD_FileRenamer_autogen UMD_FileRenamer_autogen_timestamp_deps
+build UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp | ${cmake_ninja_workdir}UMD_FileRenamer_autogen\3YJK5W5UP7\qrc_resources.cpp: CUSTOM_COMMAND C$:\development\UMD_FileRenamer-RT\qt\resources\resources.qrc CMakeFiles\UMD_FileRenamer_autogen.dir\AutoRcc_resources_3YJK5W5UP7_Info.json C$:\development\UMD_FileRenamer-RT\assets\app.ico C$:\Qt\6.10.2\msvc2022_64\bin\rcc.exe C$:\Qt\6.10.2\msvc2022_64\bin\rcc.exe || UMD_FileRenamer_autogen UMD_FileRenamer_autogen_timestamp_deps
   COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\development\UMD_FileRenamer-RT\qt\build && "C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json Release"
   DESC = Automatic RCC for resources/resources.qrc
   restat = 1

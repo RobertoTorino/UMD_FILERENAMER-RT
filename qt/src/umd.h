@@ -8,6 +8,7 @@ struct Umd
 {
     QString    id;
     QString    title;
+    QString    translatedTitle;
     QString    version;
     QString    firmware;
     QByteArray icon0;      // raw PNG bytes; empty if not found

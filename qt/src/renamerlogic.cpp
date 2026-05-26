@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QFileInfo>
 
 std::optional<Umd> RenamerLogic::readUmd(const QString &filePath)
 {
@@ -30,7 +31,7 @@ std::optional<Umd> RenamerLogic::readUmd(const QString &filePath)
     umd.id       = psf->discId;
     umd.title    = psf->title;
     umd.version  = psf->discVersion;
-    umd.firmware = psf->pspSystemVer;
+    umd.firmware = psf->pspSystemVer.left(4);
     umd.icon0    = icon0;
     umd.pic0     = pic0;
     umd.pic1     = pic1;
@@ -60,6 +61,9 @@ QList<Umd> RenamerLogic::scanDirectory(const QString &dirPath)
 QString RenamerLogic::getFormattedName(const Umd &umd, NamingTemplate namingTemplate)
 {
     QString name;
+    const QString effectiveTitle = umd.translatedTitle.trimmed().isEmpty()
+        ? umd.title
+        : umd.translatedTitle.trimmed();
 
     const QString version = umd.version.startsWith(QLatin1Char('v'), Qt::CaseInsensitive)
         ? umd.version
@@ -68,16 +72,22 @@ QString RenamerLogic::getFormattedName(const Umd &umd, NamingTemplate namingTemp
     switch (namingTemplate)
     {
     case NamingTemplate::IdTitle:
-        name = umd.id + QStringLiteral(" - ") + umd.title;
+        name = umd.id + QStringLiteral(" - ") + effectiveTitle;
+        break;
+    case NamingTemplate::IdTitleSpace:
+        name = umd.id + QStringLiteral(" ") + effectiveTitle;
         break;
     case NamingTemplate::IdTitleVersion:
-        name = umd.id + QStringLiteral(" - ") + umd.title + QStringLiteral(" - ") + version;
+        name = umd.id + QStringLiteral(" - ") + effectiveTitle + QStringLiteral(" - ") + version;
         break;
     case NamingTemplate::TitleId:
-        name = umd.title + QStringLiteral(" - ") + umd.id;
+        name = effectiveTitle + QStringLiteral(" - ") + umd.id;
+        break;
+    case NamingTemplate::TitleIdSpace:
+        name = effectiveTitle + QStringLiteral(" ") + umd.id;
         break;
     case NamingTemplate::TitleOnly:
-        name = umd.title;
+        name = effectiveTitle;
         break;
     }
 

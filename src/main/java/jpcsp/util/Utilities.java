@@ -233,7 +233,7 @@ public class Utilities {
              value = value.substring(2);
          }
 
-         if (Integer.SIZE == 32 && value.length() == 8 && value.charAt(0) >= '8') {
+         if (value.length() == 8 && value.charAt(0) >= '8') {
              address = (int) Long.parseLong(value, 16);
          } else {
              address = Integer.parseInt(value, 16);

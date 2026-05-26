@@ -9,7 +9,9 @@
 enum class NamingTemplate
 {
     IdTitle,
+    IdTitleSpace,
     TitleId,
+    TitleIdSpace,
     TitleOnly,
     IdTitleVersion
 };
@@ -35,8 +37,9 @@ public:
 
     /**
      * Build the target base filename (no extension) from the Umd metadata.
-    * Supported formats include "ULJM05437 - Ever17", "Ever17 - ULJM05437",
-    * "Ever17", and "ULJM05437 - Ever17 - v1.01".
+    * Supported formats include "ULJM05437 - Ever17", "ULJM05437 Ever17",
+    * "Ever17 - ULJM05437", "Ever17 ULJM05437", "Ever17", and
+    * "ULJM05437 - Ever17 - v1.01".
      * Characters that are illegal in Windows/Linux filenames are removed.
      */
     static QString getFormattedName(const Umd &umd,

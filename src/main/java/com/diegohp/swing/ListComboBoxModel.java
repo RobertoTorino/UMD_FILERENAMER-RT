@@ -2,7 +2,6 @@
 package com.diegohp.swing;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -17,7 +16,7 @@ import javax.swing.MutableComboBoxModel;
  * @author diegohp (Diego Hernandez Perez) - <ahref="mailto:hp.diego@gmail.com">hp.diego@gmail.com</a>
  * @version 1.0
  */
-public final class ListComboBoxModel<O> extends AbstractListModel implements MutableComboBoxModel, Serializable {
+public final class ListComboBoxModel<O> extends AbstractListModel<O> implements MutableComboBoxModel<O> {
     
     private List<O> objects;
     private O selectedObject;
@@ -50,6 +49,7 @@ public final class ListComboBoxModel<O> extends AbstractListModel implements Mut
      * @param anObject The combo box value or null for no selection.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void setSelectedItem(Object anObject) {
         if ((selectedObject != null && !selectedObject.equals( anObject )) ||
 	    selectedObject == null && anObject != null) {

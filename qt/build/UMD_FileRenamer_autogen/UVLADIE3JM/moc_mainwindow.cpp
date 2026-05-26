@@ -44,10 +44,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "",
         "onOpenFile",
         "onSetPpssppPath",
-        "onLaunchGame",
-        "row",
+        "onSetUmdGenPath",
+        "onSetWqsgUmdPath",
+        "onLaunchGameClicked",
         "onRenameAll",
         "onApplyChanges",
+        "onApplyTranslation",
         "onSelectionChanged",
         "onNamingTemplateChanged",
         "index"
@@ -60,19 +62,23 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onSetPpssppPath'
         QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onLaunchGame'
-        QtMocHelpers::SlotData<void(int)>(5, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 6 },
-        }}),
-        // Slot 'onRenameAll'
+        // Slot 'onSetUmdGenPath'
+        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onSetWqsgUmdPath'
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onLaunchGameClicked'
         QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onApplyChanges'
+        // Slot 'onRenameAll'
         QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onSelectionChanged'
+        // Slot 'onApplyChanges'
         QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onApplyTranslation'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onSelectionChanged'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onNamingTemplateChanged'
-        QtMocHelpers::SlotData<void(int)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 11 },
+        QtMocHelpers::SlotData<void(int)>(12, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 13 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -100,11 +106,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->onOpenFolder(); break;
         case 1: _t->onOpenFile(); break;
         case 2: _t->onSetPpssppPath(); break;
-        case 3: _t->onLaunchGame((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 4: _t->onRenameAll(); break;
-        case 5: _t->onApplyChanges(); break;
-        case 6: _t->onSelectionChanged(); break;
-        case 7: _t->onNamingTemplateChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 3: _t->onSetUmdGenPath(); break;
+        case 4: _t->onSetWqsgUmdPath(); break;
+        case 5: _t->onLaunchGameClicked(); break;
+        case 6: _t->onRenameAll(); break;
+        case 7: _t->onApplyChanges(); break;
+        case 8: _t->onApplyTranslation(); break;
+        case 9: _t->onSelectionChanged(); break;
+        case 10: _t->onNamingTemplateChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
@@ -129,14 +138,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 11;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 11)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 8;
+        _id -= 11;
     }
     return _id;
 }

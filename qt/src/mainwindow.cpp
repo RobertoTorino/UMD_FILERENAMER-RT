@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QDesktopServices>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPixmap>
@@ -17,6 +18,7 @@
 #include <QSplitter>
 #include <QStatusBar>
 #include <QStyle>
+#include <QUrl>
 #include <QToolButton>
 #include <QVBoxLayout>
 
@@ -46,13 +48,17 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::setupUi()
 {
     QWidget *central = new QWidget(this);
+    central->setObjectName(QStringLiteral("centralRoot"));
     setCentralWidget(central);
 
     QVBoxLayout *root = new QVBoxLayout(central);
     root->setContentsMargins(6, 6, 6, 6);
     root->setSpacing(4);
 
-    QHBoxLayout *topBar = new QHBoxLayout;
+    QWidget *topPanel = new QWidget(this);
+    topPanel->setObjectName(QStringLiteral("topPanel"));
+    QHBoxLayout *topBar = new QHBoxLayout(topPanel);
+    topBar->setContentsMargins(8, 6, 8, 6);
     topBar->addWidget(new QLabel(QStringLiteral("Source:"), this));
 
     m_sourceLabel = new QLabel(QStringLiteral("(none)"), this);
@@ -63,8 +69,10 @@ void MainWindow::setupUi()
     topBar->addWidget(new QLabel(QStringLiteral("Naming:"), this));
     m_templateCombo = new QComboBox(this);
     m_templateCombo->addItem(QStringLiteral("ID - Title"));
+    m_templateCombo->addItem(QStringLiteral("ID Title"));
     m_templateCombo->addItem(QStringLiteral("ID - Title - Version"));
     m_templateCombo->addItem(QStringLiteral("Title - ID"));
+    m_templateCombo->addItem(QStringLiteral("Title Id"));
     m_templateCombo->addItem(QStringLiteral("Title only"));
     connect(m_templateCombo,
             qOverload<int>(&QComboBox::currentIndexChanged),
@@ -84,13 +92,16 @@ void MainWindow::setupUi()
     m_settingsBtn->setText(QStringLiteral("⚙"));
     m_settingsBtn->setToolTip(QStringLiteral("Settings"));
     m_settingsBtn->setAutoRaise(true);
-    QMenu *settingsMenu = new QMenu(m_settingsBtn);
+    QMenu *settingsMenu = new QMenu(this);
     settingsMenu->addAction(QStringLiteral("Set PPSSPP Path..."), this, &MainWindow::onSetPpssppPath);
-    m_settingsBtn->setMenu(settingsMenu);
-    m_settingsBtn->setPopupMode(QToolButton::InstantPopup);
+    settingsMenu->addAction(QStringLiteral("Set UMDGEN Path..."), this, &MainWindow::onSetUmdGenPath);
+    settingsMenu->addAction(QStringLiteral("Set WQSG_UMD Path..."), this, &MainWindow::onSetWqsgUmdPath);
+    connect(m_settingsBtn, &QToolButton::clicked, this, [this, settingsMenu]() {
+        settingsMenu->exec(m_settingsBtn->mapToGlobal(QPoint(0, m_settingsBtn->height())));
+    });
     topBar->addWidget(m_settingsBtn);
 
-    root->addLayout(topBar);
+    root->addWidget(topPanel);
 
     QSplitter *splitter = new QSplitter(Qt::Vertical, this);
     root->addWidget(splitter, 1);
@@ -109,10 +120,16 @@ void MainWindow::setupUi()
     m_table->horizontalHeader()->setSectionResizeMode(ColTitle, QHeaderView::Stretch);
     m_table->horizontalHeader()->setSectionResizeMode(ColNewName, QHeaderView::Stretch);
     m_table->horizontalHeader()->setSectionResizeMode(ColLaunch, QHeaderView::ResizeToContents);
+    m_table->horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
+    m_table->horizontalHeader()->setSortIndicatorShown(false);
+    m_table->setObjectName(QStringLiteral("gamesTable"));
     m_table->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_table->setSelectionMode(QAbstractItemView::SingleSelection);
     m_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_table->setAlternatingRowColors(true);
+    m_table->setSortingEnabled(true);
     m_table->verticalHeader()->setVisible(false);
+    m_table->setStyleSheet(QStringLiteral("QTableView::item { padding-left: 8px; padding-right: 8px; }"));
     connect(m_table, &QTableWidget::itemSelectionChanged,
             this, &MainWindow::onSelectionChanged);
     splitter->addWidget(m_table);
@@ -139,20 +156,48 @@ void MainWindow::setupUi()
 
     QFormLayout *form = new QFormLayout;
     m_idEdit       = new QLineEdit(this); m_idEdit->setReadOnly(true);
-    m_titleEdit    = new QLineEdit(this);
+    m_titleEdit    = new QLineEdit(this); m_titleEdit->setReadOnly(true);
+    m_translateBtn = new QPushButton(QStringLiteral("Translate"), this);
+    m_translateBtn->setToolTip(QStringLiteral("Open Google Translate for the selected title"));
+    m_translateBtn->setEnabled(false);
+    connect(m_translateBtn, &QPushButton::clicked, this, [this]() {
+        const QString title = m_titleEdit->text().trimmed();
+        QUrl url(QStringLiteral("https://translate.google.com/?hl=en&sl=ja&tl=en&op=translate"));
+        if (!title.isEmpty())
+            url.setQuery(url.query() + QStringLiteral("&text=") + QString::fromLatin1(QUrl::toPercentEncoding(title)));
+        QDesktopServices::openUrl(url);
+    });
+    m_translationEdit = new QLineEdit(this);
     m_versionEdit  = new QLineEdit(this); m_versionEdit->setReadOnly(true);
     m_firmwareEdit = new QLineEdit(this); m_firmwareEdit->setReadOnly(true);
     m_titleEdit->installEventFilter(this);
     form->addRow(QStringLiteral("ID:"), m_idEdit);
-    form->addRow(QStringLiteral("Title:"), m_titleEdit);
+    QWidget *titleRow = new QWidget(this);
+    QHBoxLayout *titleRowLayout = new QHBoxLayout(titleRow);
+    titleRowLayout->setContentsMargins(0, 0, 0, 0);
+    titleRowLayout->setSpacing(6);
+    titleRowLayout->addWidget(m_titleEdit, 1);
+    titleRowLayout->addWidget(m_translateBtn);
+    form->addRow(QStringLiteral("Title:"), titleRow);
+    form->addRow(QStringLiteral("Translation:"), m_translationEdit);
     form->addRow(QStringLiteral("Version:"), m_versionEdit);
     form->addRow(QStringLiteral("Firmware:"), m_firmwareEdit);
     detailLayout->addLayout(form, 1);
 
+    QVBoxLayout *actionsLayout = new QVBoxLayout;
+    actionsLayout->setSpacing(8);
+
+    m_applyTranslationBtn = new QPushButton(QStringLiteral("Apply translation"), this);
+    m_applyTranslationBtn->setEnabled(false);
+    connect(m_applyTranslationBtn, &QPushButton::clicked, this, &MainWindow::onApplyTranslation);
+    actionsLayout->addWidget(m_applyTranslationBtn);
+
     m_applyBtn = new QPushButton(QStringLiteral("Apply title change"), this);
     m_applyBtn->setEnabled(false);
     connect(m_applyBtn, &QPushButton::clicked, this, &MainWindow::onApplyChanges);
-    detailLayout->addWidget(m_applyBtn, 0, Qt::AlignBottom);
+    actionsLayout->addWidget(m_applyBtn);
+    actionsLayout->addStretch(1);
+    detailLayout->addLayout(actionsLayout);
 
     splitter->addWidget(detailBox);
     splitter->setStretchFactor(0, 3);
@@ -219,9 +264,61 @@ void MainWindow::onSetPpssppPath()
     statusBar()->showMessage(QStringLiteral("PPSSPP path saved."), 2500);
 }
 
-void MainWindow::onLaunchGame(int row)
+void MainWindow::onSetUmdGenPath()
 {
-    if (row < 0 || row >= m_umds.size())
+    const QString startPath = m_umdGenPath.isEmpty()
+        ? m_currentFolder
+        : QFileInfo(m_umdGenPath).absolutePath();
+
+    const QString selected = QFileDialog::getOpenFileName(
+        this,
+        QStringLiteral("Select UMDGEN executable"),
+        startPath,
+        QStringLiteral("Executable (*.exe)"));
+
+    if (selected.isEmpty())
+        return;
+
+    m_umdGenPath = selected;
+    QSettings settings;
+    settings.setValue(QStringLiteral("tools/umdGenPath"), m_umdGenPath);
+    statusBar()->showMessage(QStringLiteral("UMDGEN path saved."), 2500);
+}
+
+void MainWindow::onSetWqsgUmdPath()
+{
+    const QString startPath = m_wqsgUmdPath.isEmpty()
+        ? m_currentFolder
+        : QFileInfo(m_wqsgUmdPath).absolutePath();
+
+    const QString selected = QFileDialog::getOpenFileName(
+        this,
+        QStringLiteral("Select WQSG_UMD executable"),
+        startPath,
+        QStringLiteral("Executable (*.exe)"));
+
+    if (selected.isEmpty())
+        return;
+
+    m_wqsgUmdPath = selected;
+    QSettings settings;
+    settings.setValue(QStringLiteral("tools/wqsgUmdPath"), m_wqsgUmdPath);
+    statusBar()->showMessage(QStringLiteral("WQSG_UMD path saved."), 2500);
+}
+
+void MainWindow::onLaunchGameClicked()
+{
+    QPushButton *playBtn = qobject_cast<QPushButton *>(sender());
+    if (playBtn == nullptr)
+        return;
+
+    const QString isoPath = playBtn->property("isoPath").toString();
+    launchGame(isoPath);
+}
+
+void MainWindow::launchGame(const QString &isoPath)
+{
+    if (isoPath.isEmpty())
         return;
 
     if (m_ppssppPath.isEmpty() || !QFileInfo::exists(m_ppssppPath))
@@ -235,7 +332,6 @@ void MainWindow::onLaunchGame(int row)
             return;
     }
 
-    const QString isoPath = m_umds[row].filePath;
     const QString workingDir = QFileInfo(m_ppssppPath).absolutePath();
     const QStringList args{QStringLiteral("--fullscreen"), isoPath};
 
@@ -296,28 +392,54 @@ void MainWindow::loadSingleFile(const QString &path)
 
 void MainWindow::refreshTable()
 {
+    m_table->setSortingEnabled(false);
     m_table->setRowCount(0);
     m_table->setRowCount(m_umds.size());
+
+    auto makeItem = [](const QString &text) {
+        QTableWidgetItem *item = new QTableWidgetItem(text);
+        item->setTextAlignment(Qt::AlignCenter);
+        return item;
+    };
 
     for (int row = 0; row < m_umds.size(); ++row)
     {
         const Umd &u = m_umds[row];
-        m_table->setItem(row, ColId,       new QTableWidgetItem(u.id));
-        m_table->setItem(row, ColTitle,    new QTableWidgetItem(u.title));
-        m_table->setItem(row, ColVersion,  new QTableWidgetItem(u.version));
-        m_table->setItem(row, ColFirmware, new QTableWidgetItem(u.firmware));
-        m_table->setItem(row, ColOldName,  new QTableWidgetItem(u.fileName()));
-        m_table->setItem(row, ColNewName,  new QTableWidgetItem());
+        QTableWidgetItem *idItem = makeItem(u.id);
+        QTableWidgetItem *titleItem = makeItem(u.title);
+        QTableWidgetItem *versionItem = makeItem(u.version);
+        QTableWidgetItem *firmwareItem = makeItem(u.firmware);
+        QTableWidgetItem *oldNameItem = makeItem(u.fileName());
+        QTableWidgetItem *newNameItem = makeItem(QString());
+        QTableWidgetItem *launchItem = makeItem(QString());
 
-        QPushButton *playBtn = new QPushButton(this);
+        idItem->setData(Qt::UserRole, u.filePath);
+        titleItem->setData(Qt::UserRole, u.filePath);
+        versionItem->setData(Qt::UserRole, u.filePath);
+        firmwareItem->setData(Qt::UserRole, u.filePath);
+        oldNameItem->setData(Qt::UserRole, u.filePath);
+        newNameItem->setData(Qt::UserRole, u.filePath);
+        launchItem->setData(Qt::UserRole, u.filePath);
+
+        m_table->setItem(row, ColId, idItem);
+        m_table->setItem(row, ColTitle, titleItem);
+        m_table->setItem(row, ColVersion, versionItem);
+        m_table->setItem(row, ColFirmware, firmwareItem);
+        m_table->setItem(row, ColOldName, oldNameItem);
+        m_table->setItem(row, ColNewName, newNameItem);
+        m_table->setItem(row, ColLaunch, launchItem);
+
+        QPushButton *playBtn = new QPushButton(m_table);
         playBtn->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
         playBtn->setToolTip(QStringLiteral("Launch in PPSSPP"));
-        connect(playBtn, &QPushButton::clicked, this, [this, row]() { onLaunchGame(row); });
+        playBtn->setProperty("isoPath", u.filePath);
+        connect(playBtn, &QPushButton::clicked, this, &MainWindow::onLaunchGameClicked);
         m_table->setCellWidget(row, ColLaunch, playBtn);
     }
 
     updatePreviewNames();
     m_table->resizeColumnsToContents();
+    m_table->setSortingEnabled(true);
 }
 
 void MainWindow::updatePreviewNames()
@@ -338,10 +460,14 @@ NamingTemplate MainWindow::selectedNamingTemplate() const
     switch (m_templateCombo->currentIndex())
     {
     case 1:
-        return NamingTemplate::IdTitleVersion;
+        return NamingTemplate::IdTitleSpace;
     case 2:
-        return NamingTemplate::TitleId;
+        return NamingTemplate::IdTitleVersion;
     case 3:
+        return NamingTemplate::TitleId;
+    case 4:
+        return NamingTemplate::TitleIdSpace;
+    case 5:
         return NamingTemplate::TitleOnly;
     default:
         return NamingTemplate::IdTitle;
@@ -359,9 +485,12 @@ void MainWindow::refreshDetail(int row)
         m_previewIconIndex = 0;
         m_idEdit->clear();
         m_titleEdit->clear();
+        m_translationEdit->clear();
+        m_translateBtn->setEnabled(false);
         m_versionEdit->clear();
         m_firmwareEdit->clear();
         m_applyBtn->setEnabled(false);
+        m_applyTranslationBtn->setEnabled(false);
         return;
     }
 
@@ -371,9 +500,12 @@ void MainWindow::refreshDetail(int row)
 
     m_idEdit->setText(u.id);
     m_titleEdit->setText(u.title);
+    m_translateBtn->setEnabled(!u.title.trimmed().isEmpty());
+    m_translationEdit->setText(u.translatedTitle.trimmed());
     m_versionEdit->setText(u.version);
     m_firmwareEdit->setText(u.firmware);
     m_applyBtn->setEnabled(true);
+    m_applyTranslationBtn->setEnabled(true);
 }
 
 void MainWindow::onSelectionChanged()
@@ -386,7 +518,22 @@ void MainWindow::onSelectionChanged()
         return;
     }
 
-    m_selectedRow = m_table->row(sel.first());
+    const int tableRow = m_table->row(sel.first());
+    const QTableWidgetItem *keyItem = m_table->item(tableRow, ColOldName);
+    if (keyItem == nullptr)
+        return;
+
+    const QString filePath = keyItem->data(Qt::UserRole).toString();
+    m_selectedRow = -1;
+    for (int i = 0; i < m_umds.size(); ++i)
+    {
+        if (m_umds[i].filePath == filePath)
+        {
+            m_selectedRow = i;
+            break;
+        }
+    }
+
     refreshDetail(m_selectedRow);
 }
 
@@ -398,8 +545,20 @@ void MainWindow::onApplyChanges()
     Umd &u = m_umds[m_selectedRow];
     u.title = m_titleEdit->text().trimmed();
 
-    m_table->item(m_selectedRow, ColNewName)
-        ->setText(RenamerLogic::getFormattedName(u, selectedNamingTemplate()) + u.suffix());
+    refreshTable();
+    refreshDetail(m_selectedRow);
+}
+
+void MainWindow::onApplyTranslation()
+{
+    if (m_selectedRow < 0 || m_selectedRow >= m_umds.size())
+        return;
+
+    Umd &u = m_umds[m_selectedRow];
+    u.translatedTitle = m_translationEdit->text().trimmed();
+
+    refreshTable();
+    refreshDetail(m_selectedRow);
 }
 
 void MainWindow::onNamingTemplateChanged(int index)
@@ -415,6 +574,8 @@ void MainWindow::loadSettings()
     const int index = settings.value(QStringLiteral("ui/namingTemplate"), 0).toInt();
     m_templateCombo->setCurrentIndex(index < 0 || index >= m_templateCombo->count() ? 0 : index);
     m_ppssppPath = settings.value(QStringLiteral("emulator/ppssppPath"), QString()).toString();
+    m_umdGenPath = settings.value(QStringLiteral("tools/umdGenPath"), QString()).toString();
+    m_wqsgUmdPath = settings.value(QStringLiteral("tools/wqsgUmdPath"), QString()).toString();
 }
 
 void MainWindow::saveSettings() const
@@ -422,6 +583,8 @@ void MainWindow::saveSettings() const
     QSettings settings;
     settings.setValue(QStringLiteral("ui/namingTemplate"), m_templateCombo->currentIndex());
     settings.setValue(QStringLiteral("emulator/ppssppPath"), m_ppssppPath);
+    settings.setValue(QStringLiteral("tools/umdGenPath"), m_umdGenPath);
+    settings.setValue(QStringLiteral("tools/wqsgUmdPath"), m_wqsgUmdPath);
 }
 
 void MainWindow::showSelectedPreviewIcon()
@@ -508,8 +671,6 @@ void MainWindow::onRenameAll()
         if (RenamerLogic::renameFile(u, newBase))
         {
             ++renamed;
-            m_table->item(i, ColOldName)->setText(u.fileName());
-            m_table->item(i, ColNewName)->setText(newBase + u.suffix());
         }
         else
         {
@@ -533,4 +694,6 @@ void MainWindow::onRenameAll()
         QMessageBox::warning(this, QStringLiteral("Rename errors"), msg);
         statusBar()->showMessage(QStringLiteral("Done with errors."));
     }
+
+    refreshTable();
 }

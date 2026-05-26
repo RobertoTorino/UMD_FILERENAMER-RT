@@ -6,7 +6,9 @@ package com.diegohp.umd.filerenamer.logic;
 
 import com.diegohp.umd.data.Umd;
 import com.diegohp.umd.data.UmdDAO;
-import java.io.*;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,6 @@ import java.util.List;
  */
 public class UmdRenamerLogic {
 
-    private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(UmdRenamerLogic.class);
     private UmdDAO umdDAO;
 
     /**
@@ -82,34 +83,6 @@ public class UmdRenamerLogic {
         File newFile = new File(folder + File.separator + newFileName + umd.getExtension());
         umd.getFile().renameTo(newFile);
         umd.setFile(newFile);
-    }
-
-    private void copyFile(String inFile, String outFile) {
-        try {
-            File f1 = new File(inFile);
-            File f2 = new File(outFile);
-            InputStream in = new FileInputStream(f1);
-
-            //For Append the file.
-            //  OutputStream out = new FileOutputStream(f2,true);
-
-            //For Overwrite the file.
-            OutputStream out = new FileOutputStream(f2);
-
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-            in.close();
-            out.close();
-            System.out.println("File copied.");
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage() + " in the specified directory.");
-            System.exit(0);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     /**

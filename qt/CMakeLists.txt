@@ -24,6 +24,10 @@ add_executable(UMD_FileRenamer
     resources/resources.qrc
 )
 
+if (WIN32)
+    target_sources(UMD_FileRenamer PRIVATE appicon.rc)
+endif()
+
 if (QT_VERSION_MAJOR EQUAL 6)
     target_link_libraries(UMD_FileRenamer PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
 else()

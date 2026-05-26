@@ -25,9 +25,12 @@ private slots:
     void onOpenFolder();
     void onOpenFile();
     void onSetPpssppPath();
-    void onLaunchGame(int row);
+    void onSetUmdGenPath();
+    void onSetWqsgUmdPath();
+    void onLaunchGameClicked();
     void onRenameAll();
     void onApplyChanges();
+    void onApplyTranslation();
     void onSelectionChanged();
     void onNamingTemplateChanged(int index);
 
@@ -42,11 +45,14 @@ private:
     void loadSettings();
     void saveSettings() const;
     void showSelectedPreviewIcon();
+    void launchGame(const QString &isoPath);
     bool eventFilter(QObject *watched, QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
 
     QString      m_currentFolder;
     QString      m_ppssppPath;
+    QString      m_umdGenPath;
+    QString      m_wqsgUmdPath;
     QList<Umd>   m_umds;
     int          m_selectedRow = -1;
     int          m_previewIconIndex = 0;
@@ -66,9 +72,12 @@ private:
     QLabel       *m_iconCaptionLabel = nullptr;
     QLineEdit    *m_idEdit        = nullptr;
     QLineEdit    *m_titleEdit     = nullptr;
+    QPushButton  *m_translateBtn  = nullptr;
+    QLineEdit    *m_translationEdit = nullptr;
     QLineEdit    *m_versionEdit   = nullptr;
     QLineEdit    *m_firmwareEdit  = nullptr;
     QPushButton  *m_applyBtn      = nullptr;
+    QPushButton  *m_applyTranslationBtn = nullptr;
 
     // ── bottom bar ────────────────────────────────────────────
     QPushButton  *m_renameAllBtn  = nullptr;
