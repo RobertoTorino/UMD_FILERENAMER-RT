@@ -89,6 +89,14 @@ QString RenamerLogic::getFormattedName(const Umd &umd, NamingTemplate namingTemp
     case NamingTemplate::TitleOnly:
         name = effectiveTitle;
         break;
+    case NamingTemplate::TitleBracketId:
+        name = effectiveTitle + QStringLiteral(" [") + umd.id + QStringLiteral("]");
+        break;
+    case NamingTemplate::TitleBracketIdVersion:
+        name = effectiveTitle
+             + QStringLiteral(" [") + umd.id + QStringLiteral("]")
+             + QStringLiteral(" [") + version + QStringLiteral("]");
+        break;
     }
 
     // Remove characters illegal in common filesystems.

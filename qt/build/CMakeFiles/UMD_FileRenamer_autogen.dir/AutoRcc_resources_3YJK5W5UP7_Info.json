@@ -13,7 +13,7 @@
 	"OPTIONS" : [ "--no-zstd", "-name", "resources" ],
 	"OUTPUT_CHECKSUM" : "3YJK5W5UP7",
 	"OUTPUT_NAME" : "qrc_resources.cpp",
-	"RCC_EXECUTABLE" : "C:/Qt/6.10.2/msvc2022_64/bin/rcc.exe",
+	"RCC_EXECUTABLE" : "C:/Qt/6.11.1/msvc2022_64/bin/rcc.exe",
 	"RCC_LIST_OPTIONS" : [ "--list" ],
 	"SETTINGS_FILE" : "C:/development/UMD_FileRenamer-RT/qt/build/CMakeFiles/UMD_FileRenamer_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Used.txt",
 	"SOURCE" : "C:/development/UMD_FileRenamer-RT/qt/resources/resources.qrc",

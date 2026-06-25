@@ -21,6 +21,7 @@
 #include <QUrl>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <algorithm>
 
 // ── Column indices ───────────────────────────────────────────────────────────
 enum Col {
@@ -74,6 +75,8 @@ void MainWindow::setupUi()
     m_templateCombo->addItem(QStringLiteral("Title - ID"));
     m_templateCombo->addItem(QStringLiteral("Title Id"));
     m_templateCombo->addItem(QStringLiteral("Title only"));
+    m_templateCombo->addItem(QStringLiteral("Title [ID]"));
+    m_templateCombo->addItem(QStringLiteral("Title [ID] [Version]"));
     connect(m_templateCombo,
             qOverload<int>(&QComboBox::currentIndexChanged),
             this,
@@ -405,8 +408,11 @@ void MainWindow::refreshTable()
     for (int row = 0; row < m_umds.size(); ++row)
     {
         const Umd &u = m_umds[row];
+        const QString displayTitle = u.translatedTitle.trimmed().isEmpty()
+            ? u.title
+            : u.translatedTitle.trimmed();
         QTableWidgetItem *idItem = makeItem(u.id);
-        QTableWidgetItem *titleItem = makeItem(u.title);
+        QTableWidgetItem *titleItem = makeItem(displayTitle);
         QTableWidgetItem *versionItem = makeItem(u.version);
         QTableWidgetItem *firmwareItem = makeItem(u.firmware);
         QTableWidgetItem *oldNameItem = makeItem(u.fileName());
@@ -445,14 +451,28 @@ void MainWindow::refreshTable()
 void MainWindow::updatePreviewNames()
 {
     const NamingTemplate namingTemplate = selectedNamingTemplate();
+    const bool sortingWasEnabled = m_table->isSortingEnabled();
+    if (sortingWasEnabled)
+        m_table->setSortingEnabled(false);
 
-    for (int row = 0; row < m_umds.size(); ++row)
+    for (int row = 0; row < m_table->rowCount(); ++row)
     {
-        const Umd &u = m_umds[row];
         QTableWidgetItem *item = m_table->item(row, ColNewName);
-        if (item != nullptr)
-            item->setText(RenamerLogic::getFormattedName(u, namingTemplate) + u.suffix());
+        const QTableWidgetItem *keyItem = m_table->item(row, ColOldName);
+        if (item == nullptr || keyItem == nullptr)
+            continue;
+
+        const QString filePath = keyItem->data(Qt::UserRole).toString();
+        const auto it = std::find_if(m_umds.cbegin(), m_umds.cend(), [&filePath](const Umd &u) {
+            return u.filePath == filePath;
+        });
+
+        if (it != m_umds.cend())
+            item->setText(RenamerLogic::getFormattedName(*it, namingTemplate) + it->suffix());
     }
+
+    if (sortingWasEnabled)
+        m_table->setSortingEnabled(true);
 }
 
 NamingTemplate MainWindow::selectedNamingTemplate() const
@@ -469,6 +489,10 @@ NamingTemplate MainWindow::selectedNamingTemplate() const
         return NamingTemplate::TitleIdSpace;
     case 5:
         return NamingTemplate::TitleOnly;
+    case 6:
+        return NamingTemplate::TitleBracketId;
+    case 7:
+        return NamingTemplate::TitleBracketIdVersion;
     default:
         return NamingTemplate::IdTitle;
     }

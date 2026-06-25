@@ -15,14 +15,14 @@
 ########################
 
 //Path to a program.
-CMAKE_AR:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.exe
+CMAKE_AR:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/lib.exe
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
 CMAKE_BUILD_TYPE:STRING=Release
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe
+CMAKE_CXX_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=/DWIN32 /D_WINDOWS /GR /EHsc
@@ -118,10 +118,13 @@ CMAKE_INSTALL_SHAREDSTATEDIR:PATH=com
 CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe
+CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/link.exe
 
-//Program used to build from build.ninja files.
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/ninja/ninja.exe
+//Tool that can launch the native build system. The value may be
+// the full path to an executable or just the tool name if it is
+// expected to be in the PATH. The tool selected depends on the
+// CMAKE_GENERATOR used to configure the project:
+CMAKE_MAKE_PROGRAM:UNINITIALIZED=C:/Qt/Tools/Ninja/ninja.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -146,8 +149,11 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 //Path to a program.
 CMAKE_MT:FILEPATH=C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/mt.exe
 
-//No help, variable specified on the command line.
-CMAKE_PREFIX_PATH:UNINITIALIZED=C:/Qt/6.10.2/msvc2022_64
+//Semicolon-separated list of installation prefixes searched by
+// find_package(), find_program(), find_library(), find_file(),
+// and find_path(). Empty by default; intended to be set by the
+// project or the user.
+CMAKE_PREFIX_PATH:UNINITIALIZED=C:/Qt/6.11.1/msvc2022_64
 
 //Value Computed by CMake
 CMAKE_PROJECT_COMPAT_VERSION:STATIC=
@@ -258,28 +264,28 @@ QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH:STRING=
 QT_ADDITIONAL_PACKAGES_PREFIX_PATH:STRING=
 
 //The directory containing a CMake configuration file for Qt6CoreTools.
-Qt6CoreTools_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6CoreTools
+Qt6CoreTools_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6CoreTools
 
 //The directory containing a CMake configuration file for Qt6Core.
-Qt6Core_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6Core
+Qt6Core_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6Core
 
 //The directory containing a CMake configuration file for Qt6EntryPointPrivate.
-Qt6EntryPointPrivate_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6EntryPointPrivate
+Qt6EntryPointPrivate_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6EntryPointPrivate
 
 //The directory containing a CMake configuration file for Qt6GuiTools.
-Qt6GuiTools_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6GuiTools
+Qt6GuiTools_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6GuiTools
 
 //The directory containing a CMake configuration file for Qt6Gui.
-Qt6Gui_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6Gui
+Qt6Gui_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6Gui
 
 //The directory containing a CMake configuration file for Qt6WidgetsTools.
-Qt6WidgetsTools_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6WidgetsTools
+Qt6WidgetsTools_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6WidgetsTools
 
 //The directory containing a CMake configuration file for Qt6Widgets.
-Qt6Widgets_DIR:PATH=C:/Qt/6.10.2/msvc2022_64/lib/cmake/Qt6Widgets
+Qt6Widgets_DIR:PATH=C:/Qt/6.11.1/msvc2022_64/lib/cmake/Qt6Widgets
 
 //No help, variable specified on the command line.
-Qt6_DIR:UNINITIALIZED=C:\Qt\6.10.2\msvc2022_64\lib\cmake\Qt6
+Qt6_DIR:UNINITIALIZED=C:\Qt\6.11.1\msvc2022_64\lib\cmake\Qt6
 
 //Value Computed by CMake
 UMD_FileRenamer_BINARY_DIR:STATIC=C:/development/UMD_FileRenamer-RT/qt/build
@@ -291,19 +297,19 @@ UMD_FileRenamer_IS_TOP_LEVEL:STATIC=ON
 UMD_FileRenamer_SOURCE_DIR:STATIC=C:/development/UMD_FileRenamer-RT/qt
 
 //Path to a program.
-Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.341.1/Bin/glslangValidator.exe
+Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.350.0/Bin/glslangValidator.exe
 
 //Path to a program.
-Vulkan_GLSLC_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.341.1/Bin/glslc.exe
+Vulkan_GLSLC_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.350.0/Bin/glslc.exe
 
 //Path to a file.
-Vulkan_INCLUDE_DIR:PATH=C:/VulkanSDK/1.4.341.1/include
+Vulkan_INCLUDE_DIR:PATH=C:/VulkanSDK/1.4.350.0/include
 
 //Path to a library.
-Vulkan_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.341.1/Lib/vulkan-1.lib
+Vulkan_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.350.0/Lib/vulkan-1.lib
 
 //Path to a program.
-WINDEPLOYQT_EXECUTABLE:FILEPATH=C:/Qt/6.10.2/msvc2022_64/bin/windeployqt.exe
+WINDEPLOYQT_EXECUTABLE:FILEPATH=C:/Qt/6.11.1/msvc2022_64/bin/windeployqt.exe
 
 
 ########################
@@ -317,9 +323,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=c:/development/UMD_FileRenamer-RT/qt/build
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=4
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=2
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=4
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=0
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=C:/Program Files/CMake/bin/cmake.exe
 //Path to cpack program executable.
@@ -340,8 +346,13 @@ CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES
 CMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
+//Set initial state for CMake diagnostics; used to persist state
+// set by command-line options across invocations.
+CMAKE_DIAGNOSTIC_INIT:INTERNAL=CMD_AUTHOR=WARN;CMD_DEPRECATED=WARN;CMD_EXPERIMENTAL=WARN;CMD_INSTALL_ABSOLUTE_DESTINATION=IGNORE;CMD_POLICY=WARN;CMD_UNINITIALIZED=IGNORE;CMD_UNUSED_CLI=WARN
 //Path to cache edit program executable.
 CMAKE_EDIT_COMMAND:INTERNAL=C:/Program Files/CMake/bin/cmake-gui.exe
+//Deprecated.  Use -W[no-]error=deprecated instead.
+CMAKE_ERROR_DEPRECATED:INTERNAL=OFF
 //Executable file format
 CMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
@@ -413,8 +424,6 @@ CMAKE_INSTALL_SYSCONFDIR-ADVANCED:INTERNAL=1
 CMAKE_LINKER-ADVANCED:INTERNAL=1
 //Name of CMakeLists files to read
 CMAKE_LIST_FILE_NAME:INTERNAL=CMakeLists.txt
-//ADVANCED property for variable: CMAKE_MAKE_PROGRAM
-CMAKE_MAKE_PROGRAM-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS
 CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG
@@ -447,7 +456,7 @@ CMAKE_RC_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS_RELWITHDEBINFO
 CMAKE_RC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=C:/Program Files/CMake/share/cmake-4.2
+CMAKE_ROOT:INTERNAL=C:/Program Files/CMake/share/cmake-4.4
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -474,6 +483,8 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Deprecated.  Use -W[no-]deprecated instead.
+CMAKE_WARN_DEPRECATED:INTERNAL=ON
 //Test HAVE_STDATOMIC
 HAVE_STDATOMIC:INTERNAL=1
 //Qt feature: abstractbutton (from target Qt6::Widgets)
@@ -490,6 +501,8 @@ QT_FEATURE_accessibility_atspi_bridge:INTERNAL=OFF
 QT_FEATURE_action:INTERNAL=ON
 //Qt feature: aesni (from target Qt6::Core)
 QT_FEATURE_aesni:INTERNAL=ON
+//Qt feature: android_16kb_pages (from target Qt6::Core)
+QT_FEATURE_android_16kb_pages:INTERNAL=OFF
 //Qt feature: android_style_assets (from target Qt6::Core)
 QT_FEATURE_android_style_assets:INTERNAL=OFF
 //Qt feature: animation (from target Qt6::Core)
@@ -502,6 +515,8 @@ QT_FEATURE_arm_crc32:INTERNAL=OFF
 QT_FEATURE_arm_crypto:INTERNAL=OFF
 //Qt feature: arm_sve (from target Qt6::Core)
 QT_FEATURE_arm_sve:INTERNAL=OFF
+//Qt feature: async_io (from target Qt6::Core)
+QT_FEATURE_async_io:INTERNAL=ON
 //Qt feature: avx (from target Qt6::Core)
 QT_FEATURE_avx:INTERNAL=ON
 //Qt feature: avx2 (from target Qt6::Core)
@@ -840,6 +855,8 @@ QT_FEATURE_library:INTERNAL=ON
 QT_FEATURE_libstdcpp_assertions:INTERNAL=OFF
 //Qt feature: libudev (from target Qt6::Core)
 QT_FEATURE_libudev:INTERNAL=OFF
+//Qt feature: liburing (from target Qt6::Core)
+QT_FEATURE_liburing:INTERNAL=OFF
 //Qt feature: lineedit (from target Qt6::Widgets)
 QT_FEATURE_lineedit:INTERNAL=ON
 //Qt feature: linkat (from target Qt6::Core)
@@ -1140,6 +1157,8 @@ QT_FEATURE_tabwidget:INTERNAL=ON
 QT_FEATURE_temporaryfile:INTERNAL=ON
 //Qt feature: test_gui (from target Qt6::Core)
 QT_FEATURE_test_gui:INTERNAL=ON
+//Qt feature: test_squish (from target Qt6::Core)
+QT_FEATURE_test_squish:INTERNAL=ON
 //Qt feature: testlib (from target Qt6::Core)
 QT_FEATURE_testlib:INTERNAL=ON
 //Qt feature: textbrowser (from target Qt6::Widgets)
@@ -1270,6 +1289,11 @@ QT_FEATURE_wheelevent:INTERNAL=ON
 QT_FEATURE_widgets:INTERNAL=ON
 //Qt feature: widgettextcontrol (from target Qt6::Widgets)
 QT_FEATURE_widgettextcontrol:INTERNAL=ON
+//Qt feature: windows_ioring (from target Qt6::Core)
+QT_FEATURE_windows_ioring:INTERNAL=ON
+//Qt feature: windows_ioring_skip_builder_param_checks (from target
+// Qt6::Core)
+QT_FEATURE_windows_ioring_skip_builder_param_checks:INTERNAL=ON
 //Qt feature: winsdkicu (from target Qt6::Core)
 QT_FEATURE_winsdkicu:INTERNAL=ON
 //Qt feature: wizard (from target Qt6::Widgets)
@@ -1284,8 +1308,6 @@ QT_FEATURE_xcb_egl_plugin:INTERNAL=OFF
 QT_FEATURE_xcb_glx:INTERNAL=OFF
 //Qt feature: xcb_glx_plugin (from target Qt6::Gui)
 QT_FEATURE_xcb_glx_plugin:INTERNAL=OFF
-//Qt feature: xcb_native_painting (from target Qt6::Gui)
-QT_FEATURE_xcb_native_painting:INTERNAL=OFF
 //Qt feature: xcb_sm (from target Qt6::Gui)
 QT_FEATURE_xcb_sm:INTERNAL=OFF
 //Qt feature: xcb_xlib (from target Qt6::Gui)
@@ -1304,8 +1326,6 @@ QT_FEATURE_xmlstream:INTERNAL=ON
 QT_FEATURE_xmlstreamreader:INTERNAL=ON
 //Qt feature: xmlstreamwriter (from target Qt6::Core)
 QT_FEATURE_xmlstreamwriter:INTERNAL=ON
-//Qt feature: xrender (from target Qt6::Gui)
-QT_FEATURE_xrender:INTERNAL=OFF
 //Qt feature: zstd (from target Qt6::Core)
 QT_FEATURE_zstd:INTERNAL=OFF
 //ADVANCED property for variable: Vulkan_GLSLANG_VALIDATOR_EXECUTABLE

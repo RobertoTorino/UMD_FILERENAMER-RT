@@ -13,7 +13,9 @@ enum class NamingTemplate
     TitleId,
     TitleIdSpace,
     TitleOnly,
-    IdTitleVersion
+    IdTitleVersion,
+    TitleBracketId,
+    TitleBracketIdVersion
 };
 
 /**
@@ -38,7 +40,8 @@ public:
     /**
      * Build the target base filename (no extension) from the Umd metadata.
     * Supported formats include "ULJM05437 - Ever17", "ULJM05437 Ever17",
-    * "Ever17 - ULJM05437", "Ever17 ULJM05437", "Ever17", and
+    * "Ever17 - ULJM05437", "Ever17 ULJM05437", "Ever17",
+    * "Ever17 [ULJM05437]", "Ever17 [ULJM05437] [v1.01]", and
     * "ULJM05437 - Ever17 - v1.01".
      * Characters that are illegal in Windows/Linux filenames are removed.
      */
