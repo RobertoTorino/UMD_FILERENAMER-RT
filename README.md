@@ -37,6 +37,9 @@ Set-Location qt
 
 The executable is produced at `qt/build/UMD_FileRenamer.exe`.
 
+### Automated releases
+Every push to `main` builds and deploys the Windows Qt application, increments the latest `vMAJOR.MINOR.PATCH` tag, and publishes a GitHub release containing `UMD-File-Renamer-Windows-x64.zip`. The existing `v1.0` tag is treated as `v1.0.0`, so the first automated release will be `v1.0.1`.
+
 ![main_ui.png](assets/main_ui.png)
 
 ---

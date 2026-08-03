@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and release Windows app
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.3
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Configure
+        run: >-
+          cmake -S qt -B build -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_PREFIX_PATH="$env:QT_ROOT_DIR"
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Package application
+        shell: pwsh
+        run: |
+          $packageDirectory = "dist/UMD-File-Renamer"
+          New-Item -ItemType Directory -Path $packageDirectory -Force | Out-Null
+          Copy-Item "build/UMD_FileRenamer.exe" $packageDirectory
+          windeployqt --release --compiler-runtime --no-translations "$packageDirectory/UMD_FileRenamer.exe"
+          Compress-Archive -Path "$packageDirectory/*" -DestinationPath "dist/UMD-File-Renamer-Windows-x64.zip"
+
+      - name: Determine next version
+        id: version
+        shell: pwsh
+        run: |
+          $versions = git tag --list "v*" | ForEach-Object {
+            if ($_ -match '^v(?<major>\d+)\.(?<minor>\d+)(?:\.(?<patch>\d+))?$') {
+              [pscustomobject]@{
+                Major = [int]$Matches.major
+                Minor = [int]$Matches.minor
+                Patch = if ($Matches.patch) { [int]$Matches.patch } else { 0 }
+              }
+            }
+          }
+
+          $latest = $versions | Sort-Object Major, Minor, Patch -Descending | Select-Object -First 1
+          if ($latest) {
+            $tag = "v$($latest.Major).$($latest.Minor).$($latest.Patch + 1)"
+          } else {
+            $tag = "v1.0.0"
+          }
+
+          "tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          Write-Host "Next release tag: $tag"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: >-
+          gh release create "$env:RELEASE_TAG"
+          "dist/UMD-File-Renamer-Windows-x64.zip"
+          --target "$env:GITHUB_SHA"
+          --title "UMD File Renamer $env:RELEASE_TAG"
+          --generate-notes
